@@ -172,5 +172,182 @@
     <a href="home.html" class="back-button">Back to Home</a>
 </div>
 
+<div id="subscriptionModal" class="modal">
+    <div class="modal-content">
+        <span class="close-button">&times;</span>
+        <div class="modal-left">
+            <h2>Request Subscription</h2>
+            <form id="subscriptionForm">
+                <div class="form-group">
+                    <input type="text" id="name" name="name" placeholder="Name" required>
+                </div>
+                <div class="form-group">
+                    <input type="email" id="email" name="email" placeholder="Corporate E-mail" required>
+                </div>
+                <div class="form-group">
+                    <input type="tel" id="phone" name="phone" placeholder="Phone number" required>
+                </div>
+                <div class="form-group">
+                    <textarea id="message" name="message" placeholder="Additional information" rows="4"></textarea>
+                </div>
+                <div class="form-group">
+                    <label class="checkbox-container">
+                        <input type="checkbox" id="terms" name="terms">
+                        <span class="checkmark"></span>
+                        I agree to the terms and conditions
+                    </label>
+                </div>
+                <button type="submit" class="submit-button">Send request</button>
+            </form>
+        </div>
+        <div class="modal-right">
+            <h3>Get Started Today</h3>
+            <p>Subscribe now and enjoy our premium features with a free first month!</p>
+            <div class="selected-plan">
+                <h4>Selected Plan:</h4>
+                <p id="selectedPlanText">Monthly Subscription</p>
+            </div>
+        </div>
+    </div>
+</div>
+
+<style>
+.modal {
+    display: none;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.7);
+    z-index: 1000;
+}
+
+.modal-content {
+    position: relative;
+    background-color: #2c2c2c;
+    margin: 5% auto;
+    padding: 20px;
+    width: 80%;
+    max-width: 800px;
+    border-radius: 10px;
+    display: flex;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.3);
+}
+
+.modal-left {
+    flex: 1;
+    padding: 20px;
+    border-right: 1px solid #3c3c3c;
+}
+
+.modal-right {
+    flex: 1;
+    padding: 20px;
+    background-color: #252525;
+    border-radius: 0 10px 10px 0;
+}
+
+.close-button {
+    position: absolute;
+    right: 20px;
+    top: 10px;
+    font-size: 24px;
+    cursor: pointer;
+    color: #5bb3ff;
+}
+
+.form-group {
+    margin-bottom: 15px;
+}
+
+input[type="text"],
+input[type="email"],
+input[type="tel"],
+textarea {
+    width: 100%;
+    padding: 10px;
+    border: 1px solid #3c3c3c;
+    border-radius: 5px;
+    background-color: #1c1c1c;
+    color: #ffffff;
+    margin-top: 5px;
+}
+
+.submit-button {
+    background-color: #5bb3ff;
+    color: #000;
+    padding: 10px 20px;
+    border: none;
+    border-radius: 20px;
+    cursor: pointer;
+    width: 100%;
+    font-weight: bold;
+}
+
+.submit-button:hover {
+    background-color: #4a91cc;
+}
+
+h2, h3 {
+    color: #5bb3ff;
+    margin-bottom: 20px;
+}
+
+.selected-plan {
+    margin-top: 20px;
+    padding: 15px;
+    background-color: #1c1c1c;
+    border-radius: 5px;
+}
+
+.checkbox-container {
+    display: flex;
+    align-items: center;
+    color: #e0e0e0;
+    margin-bottom: 15px;
+}
+
+.checkbox-container input[type="checkbox"] {
+    margin-right: 10px;
+}
+</style>
+
 </body>
 </html>
+
+
+<script>
+    // Add this JavaScript after your existing scripts
+    document.addEventListener('DOMContentLoaded', function() {
+        const modal = document.getElementById('subscriptionModal');
+        const closeButton = document.querySelector('.close-button');
+        const subscribeButtons = document.querySelectorAll('.subscribe-button');
+        const selectedPlanText = document.getElementById('selectedPlanText');
+    
+        subscribeButtons.forEach(button => {
+            button.addEventListener('click', function() {
+                const planTitle = this.closest('.subscription-card').querySelector('h3').textContent;
+                selectedPlanText.textContent = planTitle;
+                modal.style.display = 'block';
+            });
+        });
+    
+        closeButton.addEventListener('click', function() {
+            modal.style.display = 'none';
+        });
+    
+        window.addEventListener('click', function(event) {
+            if (event.target === modal) {
+                modal.style.display = 'none';
+            }
+        });
+    
+        document.getElementById('subscriptionForm').addEventListener('submit', function(e) {
+            e.preventDefault();
+            // Add your form submission logic here
+            alert('Thank you for your subscription request! We will contact you soon.');
+            modal.style.display = 'none';
+        });
+    });
+    </script>
