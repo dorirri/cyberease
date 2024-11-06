@@ -18,6 +18,7 @@ This web application provides a secure file scanning service with user authentic
 - Go 1.16 or higher
 - Windows OS (for Windows Defender integration)
 - Git (for cloning the repository)
+- SQLite3
 
 ## Required Go Packages
 ```bash
@@ -36,30 +37,6 @@ cd [project-directory]
 2. Run the application:
 ```bash
 go run ./cmd
-```
-
-## Configuration
-
-### Session Security
-Edit `session.go` to configure session parameters:
-```go
-store.Options = &sessions.Options{
-    Path:     "/",
-    MaxAge:   86400 * 7, // 7 days
-    HttpOnly: true,
-    Secure:   true,      // Set to true if using HTTPS
-}
-```
-
-### Protected Routes
-Add protected pages in `handlers.go`:
-```go
-protectedPages := map[string]bool{
-    "monitoring.html": true,
-    "incident.html":   true,
-    "scan.html": true,
-    // Add more protected pages here
-}
 ```
 
 ## Security Features
