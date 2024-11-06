@@ -1,0 +1,65 @@
+/* home.css */
+body {
+    font-family: Arial, sans-serif;
+    margin: 0;
+    padding: 0;
+    background-color: #f4f4f4;
+}
+
+#header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 20px;
+    background-color: #333;
+    color: white;
+}
+
+.logo img {
+    height: 50px;
+}
+
+.user-info {
+    font-size: 18px;
+}
+
+#welcomeMessage {
+    margin-right: 20px;
+    font-weight: bold;
+}
+
+/* #logoutBtn {
+    background-color: #ff3333;
+    color: white;
+    border: none;
+    padding: 10px 20px;
+    cursor: pointer;
+    font-size: 16px;
+    border-radius: 5px;
+}
+
+#logoutBtn:hover {
+    background-color: #cc0000;
+} */
+
+
+.main-content {
+    text-align: center;
+    margin-top: 50px;
+}
+html {
+    scroll-behavior: smooth;
+}
+
+/* Ensure sections have proper padding for scrolling */
+#header, #about, #services, #portfolio, #contact {
+    padding-top: 70px; /* Adjust based on your navbar height */
+    margin-top: -70px; /* Offset the padding */
+}
+
+/* Style the contact button hover state */
+#contact-button a:hover {
+    background: #cc0000;
+    transform: translateY(-2px);
+    box-shadow: 0 6px 16px rgba(255, 0, 0, 0.4);
+}

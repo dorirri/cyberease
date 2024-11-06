@@ -1,0 +1,93 @@
+@import url('https://fonts.googleapis.com/css?family=Raleway:300&display=swap');
+@import url('https://fonts.googleapis.com/css?family=Poppins:500&display=swap');
+
+body, html {
+    height: 100%;
+    background: #171717;
+    color: whitesmoke;
+    font-family: 'Poppins', sans-serif;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.container {
+    width: 400px;
+    padding: 20px;
+    background-color: #202020;
+    border-radius: 10px;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.5);
+    text-align: center;
+}
+
+h1 {
+    font-size: 30px;
+    font-weight: 00;
+    font-family: 'Raleway', sans-serif;
+    margin: 20px 0;  /* Adjusts vertical spacing */
+    color: #c70039;
+    text-align: center;  /* Centers the text */
+}
+
+h2 {
+    font-size: 24px;
+    font-family: 'Raleway', sans-serif;
+    margin-bottom: 20px;
+    color: #c70039;
+}
+
+form {
+    display: flex;
+    flex-direction: column;
+}
+
+.form-container {
+    width: 400px;
+    padding: 40px; /* Increased padding to add more space around the form */
+    background-color: #202020;
+    border-radius: 10px;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.5);
+}
+
+label {
+    text-align: left; /* Align labels to the left */
+    margin: 10px 0 5px 0; /* Spacing around labels */
+}
+
+input[type="text"], input[type="password"], input[type="email"] {
+    background: #101010;
+    border: none;
+    padding: 12px;
+    margin: 10px 0;
+    color: whitesmoke;
+    border-radius: 4px;
+    font-family: 'Poppins', sans-serif;
+}
+
+input[type="submit"] {
+    background-color: #c70039;
+    border: none;
+    padding: 12px;
+    border-radius: 4px;
+    color: white;
+    font-size: 16px;
+    cursor: pointer;
+    transition: all .4s ease;
+    font-family: 'Poppins', sans-serif;
+}
+
+input[type="submit"]:hover {
+    background-color: #a6002e;
+}
+
+a {
+    color: #c70039;
+    text-decoration: none;
+    margin-top: 15px;
+    font-size: 14px;
+    transition: color 0.4s;
+}
+
+a:hover {
+    color: #ff4e60;
+}

@@ -1,0 +1,573 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Purchase Service</title>
+    <style>
+       
+       body {
+            margin: 0;
+            padding: 0;
+            font-family: 'Arial', sans-serif;
+            background-color: #111;
+            color: #fff;
+        }
+
+        header {
+            background-color: #1e1e1e;
+            padding: 20px;
+            text-align: center;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.5);
+            position: relative;
+        }
+
+        header h1 {
+            color: #ffcc00;
+            font-size: 36px;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+        }
+
+        .navbar {
+            position: absolute;
+            bottom: 20px;
+            right: 20px;
+        }
+
+        .navbar a {
+            color: #ffcc00;
+            text-decoration: none;
+            font-size: 18px;
+            transition: color 0.3s ease;
+        }
+
+        .navbar a:hover {
+            color: #e6b800;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 40px auto;
+            padding: 20px;
+            background-color: #1a1a1a;
+            border-radius: 10px;
+            box-shadow: 0px 4px 15px rgba(0, 0, 0, 0.7);
+            display: flex;
+        }
+
+        .left-column, .right-column {
+            width: 50%;
+            padding: 20px;
+        }
+
+        .service-image img {
+            width: 100%;
+            border-radius: 10px;
+        }
+
+        .service-description h2 {
+            color: #ffcc00;
+            font-size: 24px;
+        }
+
+        .service-description p {
+            font-size: 18px;
+            line-height: 1.5;
+        }
+
+        .service-price {
+            font-size: 22px;
+            color: #ffcc00;
+            margin-top: 10px;
+        }
+
+        .form-group {
+            margin-bottom: 20px;
+        }
+
+        .form-group label {
+            display: block;
+            font-size: 18px;
+            margin-bottom: 5px;
+            color: #ddd;
+        }
+
+        .form-group input {
+            width: calc(100% - 20px);
+            padding: 10px;
+            font-size: 16px;
+            border: 1px solid #444;
+            background-color: #222;
+            color: #fff;
+            border-radius: 5px;
+            outline: none;
+        }
+
+        .form-group input:focus {
+            border-color: #ffcc00;
+            box-shadow: 0 0 8px #ffcc00;
+        }
+
+        .buy-button button {
+            padding: 12px 20px;
+            font-size: 18px;
+            background-color: #444;
+            border: none;
+            border-radius: 5px;
+            cursor: not-allowed;
+            color: #000;
+            transition: background-color 0.3s ease;
+        }
+
+        .buy-button button.enabled {
+            background-color: #ffcc00;
+            cursor: pointer;
+        }
+
+        .buy-button button:hover.enabled {
+            background-color: #e6b800;
+        }
+
+        .terms {
+            margin-top: 20px;
+            font-size: 14px;
+            color: #bbb;
+        }
+
+        .terms input {
+            margin-right: 10px;
+        }
+
+     
+        .reviews-container {
+            background-color: #222;
+            padding: 20px;
+            border-radius: 10px;
+            margin-top: 40px;
+        }
+
+        .reviews-container h2 {
+            color: #ffcc00;
+            margin-bottom: 20px;
+        }
+
+        .review-form textarea {
+            width: calc(100% - 20px);
+            padding: 10px;
+            font-size: 16px;
+            background-color: #333;
+            color: #fff;
+            border: 1px solid #444;
+            border-radius: 5px;
+            margin-bottom: 10px;
+            outline: none;
+            resize: vertical;
+        }
+
+        .review-form button {
+            padding: 12px 20px;
+            background-color: #ffcc00;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            color: #000;
+            font-size: 18px;
+        }
+
+        .reviews {
+            margin-top: 20px;
+        }
+
+        .review-item {
+            background-color: #333;
+            padding: 15px;
+            border-radius: 5px;
+            margin-bottom: 10px;
+            color: #fff;
+        }
+
+        .review-item span {
+            color: #ffcc00;
+            font-size: 14px;
+            display: block;
+            margin-top: 10px;
+        }
+
+        .faq-container h2 {
+    color: #fff;
+    font-size: 36px;
+    text-transform: uppercase;
+    margin-bottom: 30px;
+}
+
+.faq-item {
+    margin-bottom: 20px;
+    border-bottom: 1px solid #333;
+}
+
+.faq-question {
+    background-color: #222;
+    color: #fff;
+    padding: 15px;
+    border: none;
+    width: 100%;
+    text-align: left;
+    cursor: pointer;
+    font-size: 18px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    transition: background-color 0.3s ease, color 0.3s ease;
+    border-radius: 8px;
+}
+
+.faq-question:hover {
+    background-color: #333;
+    color: #ffcc00;
+}
+
+.faq-answer {
+    display: none;
+    background-color: #111;
+    padding: 15px;
+    border-radius: 8px;
+    margin-top: 10px;
+    color: #ddd;
+    font-size: 16px;
+    text-align: left;
+    transition: all 0.3s ease;
+}
+
+.faq-toggle-icon {
+    font-size: 24px;
+    color: #ffcc00;
+}
+
+.faq-item.active .faq-answer {
+    display: block;
+}
+
+.faq-item.active .faq-toggle-icon {
+    content: '-';
+    transform: rotate(45deg);
+    color: #e6b800;
+}
+
+.faq-answer p {
+    margin: 0;
+}
+textarea {
+    width: 100%;
+    padding: 15px;
+    background-color: #333;
+    color: #fff;
+    border: none;
+    border-radius: 5px;
+    margin-bottom: 15px;
+    resize: none;
+}
+
+button {
+    background-color: #ffcc00;
+    color: #000;
+    padding: 10px 20px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 16px;
+}
+
+button:hover {
+    background-color: #e6b800;
+}
+    </style>
+</head>
+<body>
+
+<header>
+    <h1>Service Purchase Page</h1>
+   
+    <div class="navbar">
+        <a href="home.html">Home</a>
+    </div>
+</header>
+
+<div class="container">
+   
+    <div class="left-column">
+        <div class="service-image">
+            <img src="images/post-six.jpg" alt="Service Image">
+        </div>
+
+        <div class="service-description">
+            <h2>Information Security Audit</h2>
+            <p>An Information Security Audit is a comprehensive analysis of your organization's IT infrastructure to identify vulnerabilities and security risks. Our team of experts assesses the strength of your systems and provides actionable recommendations to improve your overall security posture.</p>
+            <p>What’s included:</p>
+            <ul>
+                <li>Evaluation of existing security policies and practices.</li>
+                <li>Identification of vulnerabilities in network and application security.</li>
+                <li>Detailed audit report with risk assessment and remediation suggestions.</li>
+                <li>Assessment of compliance with international security standards.</li>
+            </ul>
+            <p class="service-price">Price: $500</p>
+            <p>Auditor: <a href="auditor-profile.html" style="color: #ffcc00; text-decoration: none;">Dmitry Rudenko</a></p>
+        </div>
+    </div>
+
+   
+    <div class="right-column">
+        <form id="purchaseForm">
+            <div class="form-group">
+                <label for="first-name">First Name:</label>
+                <input type="text" id="first-name" required>
+            </div>
+
+            <div class="form-group">
+                <label for="last-name">Last Name:</label>
+                <input type="text" id="last-name" required>
+            </div>
+
+            <div class="form-group">
+                <label for="birth-year">Year of Birth:</label>
+                <input type="number" id="birth-year" required>
+            </div>
+
+            <div class="form-group">
+                <label for="card-number">Credit Card Number:</label>
+                <input type="text" id="card-number" maxlength="16" required>
+            </div>
+
+            <div class="form-group">
+                <label for="expiry-date">Expiry Date:</label>
+                <input type="month" id="expiry-date" required>
+            </div>
+
+            <div class="form-group">
+                <label for="cvv">CVV:</label>
+                <input type="password" id="cvv" maxlength="3" required>
+            </div>
+
+            <div class="terms">
+                <input type="checkbox" id="agree-terms" onclick="toggleBuyButton()"> 
+                <label for="agree-terms">I agree to submit my personal data for processing.</label>
+            </div>
+
+            <div class="buy-button">
+                <button type="button" id="buy-btn" disabled>Buy Now for $500</button>
+            </div>
+        </form>
+    </div>
+</div>
+<div class="right-column">
+
+</div>
+</div>
+
+
+<div class="reviews-container">
+    <h2>Customer Reviews</h2>
+
+    <div class="review-form">
+        <div class="star-rating" id="starRating">
+            <span class="star unchecked" data-rating="1">&#9733;</span>
+            <span class="star unchecked" data-rating="2">&#9733;</span>
+            <span class="star unchecked" data-rating="3">&#9733;</span>
+            <span class="star unchecked" data-rating="4">&#9733;</span>
+            <span class="star unchecked" data-rating="5">&#9733;</span>
+        </div>
+
+        <textarea id="reviewText" rows="5" placeholder="Write your review here..."></textarea>
+        <button onclick="addReview()">Submit Review</button>
+    </div>
+
+    <div class="reviews" id="reviewsContainer">
+        <div class="review-item">
+            <p>The information security audit was incredibly thorough. Their team highlighted areas where we could improve and provided clear recommendations to enhance our overall security.</p>
+            <span>Brian Walker - &#9733;&#9733;&#9733;&#9733;&#9733;</span>
+        </div>
+        <div class="review-item">
+            <p>We were impressed by the depth of the security audit. It uncovered several weaknesses, and the action plan they provided was easy to follow. A very professional and valuable service.</p>
+            <span>Samantha Phillips - &#9733;&#9733;&#9733;&#9733;&#9734;</span>
+        </div>
+    </div>
+</div>
+
+<div class="faq-container">
+    <h2>FAQ</h2>
+
+    <div class="faq-item">
+        <button class="faq-question">
+            <span>What is an information security audit?</span>
+            <span class="faq-toggle-icon">+</span>
+        </button>
+        <div class="faq-answer">
+            <p>An information security audit is a comprehensive assessment of your organization's IT infrastructure to identify security vulnerabilities and risks. The audit examines systems, policies and processes to ensure they comply with information security standards.</p>
+        </div>
+    </div>
+
+    <div class="faq-item">
+        <button class="faq-question">
+            <span>What standards are followed during an audit?</span>
+            <span class="faq-toggle-icon">+</span>
+        </button>
+        <div class="faq-answer">
+            <p>Our experts conduct audits based on international information security standards such as ISO/IEC 27001, NIST (U.S. National Institute of Standards and Technology), and other regulations and standards relevant to your region and industry.</p>
+        </div>
+    </div>
+
+    <div class="faq-item">
+        <button class="faq-question">
+            <span>How long does an information security audit last?</span>
+            <span class="faq-toggle-icon">+</span>
+        </button>
+        <div class="faq-answer">
+            <p>The duration of the audit depends on the complexity and scope of your IT infrastructure. On average, an audit can take from 1 to 3 weeks, depending on the scope of work and the required level of analysis depth.</p>
+        </div>
+    </div>
+
+    <div class="faq-item">
+        <button class="faq-question">
+            <span>What data and accesses are required to conduct an audit?</span>
+            <span class="faq-toggle-icon">+</span>
+        </button>
+        <div class="faq-answer">
+            <p>To conduct an audit, we will ask for access to your company's key systems, networks and security policies. This may include servers, network devices, access control documentation, and current security processes.</p>
+        </div>
+    </div>
+</div>
+
+
+<script>
+    function addReview() {
+        const reviewText = document.getElementById('reviewText').value;
+    
+        if (reviewText.trim()) {
+            const reviewContainer = document.getElementById('reviewsContainer');
+    
+          
+            const newReview = document.createElement('div');
+            newReview.classList.add('review-item');
+            newReview.innerHTML = `<p>${reviewText}</p><span>Anonymous User</span>`;
+    
+           
+            reviewContainer.appendChild(newReview);
+    
+            
+            document.getElementById('reviewText').value = '';
+        } else {
+            alert("The review field cannot be empty!");
+        }
+    }
+    </script>
+<footer>
+   
+</footer>
+
+<script>
+   
+    function toggleBuyButton() {
+        const agreeTerms = document.getElementById('agree-terms');
+        const buyBtn = document.getElementById('buy-btn');
+
+        if (agreeTerms.checked) {
+            buyBtn.classList.add('enabled');
+            buyBtn.disabled = false;
+        } else {
+            buyBtn.classList.remove('enabled');
+            buyBtn.disabled = true;
+        }
+    }
+
+   
+    document.getElementById('buy-btn').addEventListener('click', function() {
+        if (document.getElementById('agree-terms').checked) {
+            alert('Thank you for your purchase!');
+        } else {
+            alert('Please agree to the terms to proceed.');
+        }
+    });
+</script>
+<script>
+    const faqQuestions = document.querySelectorAll('.faq-question');
+
+    faqQuestions.forEach(question => {
+        question.addEventListener('click', function() {
+            const faqItem = this.parentElement;
+            const answer = faqItem.querySelector('.faq-answer');
+            const toggleIcon = faqItem.querySelector('.faq-toggle-icon');
+            
+            // Toggle the active class for the accordion effect
+            faqItem.classList.toggle('active');
+            
+            // Animate the height change for the answer
+            if (faqItem.classList.contains('active')) {
+                answer.style.display = 'block';
+                toggleIcon.textContent = '-';
+            } else {
+                answer.style.display = 'none';
+                toggleIcon.textContent = '+';
+            }
+        });
+    });
+</script>
+<script>
+    let selectedRating = 0;
+
+document.querySelectorAll('.star').forEach(star => {
+    star.addEventListener('click', function () {
+        selectedRating = this.getAttribute('data-rating');
+        updateStarRating(selectedRating);
+    });
+});
+
+function updateStarRating(rating) {
+    document.querySelectorAll('.star').forEach(star => {
+        if (star.getAttribute('data-rating') <= rating) {
+            star.classList.remove('unchecked');
+        } else {
+            star.classList.add('unchecked');
+        }
+    });
+}
+
+function addReview() {
+    const reviewText = document.getElementById('reviewText').value;
+
+    if (reviewText.trim() && selectedRating > 0) {
+        const reviewContainer = document.getElementById('reviewsContainer');
+
+        const newReview = document.createElement('div');
+        newReview.classList.add('review-item');
+        let starRating = '';
+        for (let i = 1; i <= 5; i++) {
+            if (i <= selectedRating) {
+                starRating += '&#9733;';
+            } else {
+                starRating += '&#9734;';
+            }
+        }
+        newReview.innerHTML = `
+            <div class="review-header">
+                <div class="review-avatar"></div>
+                <p class="review-username">Anonymous User</p>
+                <div class="review-stars">${starRating}</div>
+            </div>
+            <p class="review-text">${reviewText}</p>
+        `;
+
+        reviewContainer.appendChild(newReview);
+
+        document.getElementById('reviewText').value = '';
+        updateStarRating(0);  
+        selectedRating = 0;
+    } else {
+        alert("Please write a review and select a rating!");
+    }
+}
+
+
+</script>
+
+</body>
+</html>

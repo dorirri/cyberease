@@ -1,0 +1,269 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Contact Us - CyberEase</title>
+    <link rel="icon" type="/static/image/png" href="/static/images/favicon.png">
+    <!-- <link rel="stylesheet" href="/static/css/index.css"> -->
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: system-ui, -apple-system, sans-serif;
+        }
+
+        body {
+            background: linear-gradient(135deg, #000000, #1a0000);
+            min-height: 100vh;
+        }
+
+        .navbar {
+            background: rgba(0, 0, 0, 0.8);
+            padding: 1rem 5%;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            position: fixed;
+            width: 100%;
+            top: 0;
+            z-index: 1000;
+        }
+
+        .logo {
+            display: flex;
+            align-items: center;
+        }
+
+        .logo img {
+            height: 40px;
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 2rem;
+        }
+
+        .nav-links a {
+            color: white;
+            text-decoration: none;
+            font-weight: 500;
+            transition: color 0.3s;
+        }
+
+        .nav-links a:hover {
+            color: #ff0000;
+        }
+
+        .contact-header {
+            text-align: center;
+            padding: 8rem 2rem 4rem;
+            color: white;
+        }
+
+        .contact-header h1 {
+            font-size: 3rem;
+            margin-bottom: 1rem;
+        }
+
+        .contact-header p {
+            color: #cccccc;
+            font-size: 1.2rem;
+        }
+
+        .contact-main {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 2rem;
+            display: flex;
+            gap: 4rem;
+            flex-wrap: wrap;
+        }
+
+        .contact-form {
+            flex: 1;
+            min-width: 300px;
+            background: rgba(255, 255, 255, 0.1);
+            padding: 2rem;
+            border-radius: 20px;
+        }
+
+        .form-group {
+            margin-bottom: 1.5rem;
+        }
+
+        .form-group label {
+            display: block;
+            color: white;
+            margin-bottom: 0.5rem;
+        }
+
+        .form-group input,
+        .form-group textarea {
+            width: 100%;
+            padding: 0.8rem;
+            background: rgba(255, 255, 255, 0.1);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            border-radius: 8px;
+            color: white;
+        }
+
+        .form-group textarea {
+            height: 150px;
+            resize: vertical;
+        }
+
+        .submit-btn {
+            background: #ff0000;
+            color: white;
+            padding: 1rem 2rem;
+            border: none;
+            border-radius: 30px;
+            cursor: pointer;
+            transition: background 0.3s;
+            font-size: 1rem;
+            width: 100%;
+        }
+
+        .submit-btn:hover {
+            background: #cc0000;
+        }
+
+        .contact-info {
+            flex: 1;
+            min-width: 300px;
+            color: white;
+        }
+
+        .info-card {
+            background: rgba(255, 255, 255, 0.1);
+            padding: 2rem;
+            border-radius: 20px;
+            margin-bottom: 1rem;
+        }
+
+        .info-card h3 {
+            color: #ff0000;
+            margin-bottom: 1rem;
+        }
+
+        .info-item {
+            margin-bottom: 1rem;
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+        }
+
+        .info-icon {
+            width: 40px;
+            height: 40px;
+            background: rgba(255, 0, 0, 0.2);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .footer {
+            text-align: center;
+            padding: 2rem;
+            color: white;
+            background: rgba(0, 0, 0, 0.5);
+            margin-top: 4rem;
+        }
+    </style>
+</head>
+<body>
+    <nav class="navbar">
+        <div class="logo">
+            <img src="/static/images/willy wonka logo.png" alt="CyberEase Logo">
+        </div>
+        <div class="nav-links">
+            <a href="/">Home</a>
+            <a href="/#about">About</a>
+            <a href="/#services">Services</a>
+            <a href="/scan">Scanner</a>
+            <a href="/#portfolio">Freelancers</a>  <!-- portfolio is your freelancers section -->
+            <a href="/sub">Subscribe</a>
+        </div>
+    </nav>
+
+    <div class="contact-header">
+        <h1>Get in Touch</h1>
+        <p>We Would Be Happy To Assist You</p>
+    </div>
+
+    <div class="contact-main">
+        <div class="contact-form">
+            <form id="contactForm">
+                <div class="form-group">
+                    <label for="name">Name</label>
+                    <input type="text" id="name" name="name" required>
+                </div>
+                <div class="form-group">
+                    <label for="email">Email</label>
+                    <input type="email" id="email" name="email" required>
+                </div>
+                <div class="form-group">
+                    <label for="subject">Subject</label>
+                    <input type="text" id="subject" name="subject" required>
+                </div>
+                <div class="form-group">
+                    <label for="message">Message</label>
+                    <textarea id="message" name="message" required></textarea>
+                </div>
+                <button type="submit" class="submit-btn">Send Message</button>
+            </form>
+        </div>
+
+        <div class="contact-info">
+            <div class="info-card">
+                <h3>Contact Information</h3>
+                <div class="info-item">
+                    <div class="info-icon">📍</div>
+                    <div>
+                        <h4>Location</h4>
+                        <p>New York, USA</p>
+                    </div>
+                </div>
+                <div class="info-item">
+                    <div class="info-icon">📞</div>
+                    <div>
+                        <h4>Phone</h4>
+                        <p>+1 800-390-1053</p>
+                    </div>
+                </div>
+                <div class="info-item">
+                    <div class="info-icon">✉️</div>
+                    <div>
+                        <h4>Email</h4>
+                        <p>info@cyberease.com</p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="info-card">
+                <h3>Business Hours</h3>
+                <p>Monday - Friday: 9:00 AM - 6:00 PM</p>
+                <p>Saturday: 10:00 AM - 4:00 PM</p>
+                <p>Sunday: Closed</p>
+            </div>
+        </div>
+    </div>
+
+    <footer class="footer">
+        <p>&copy; 2024 CyberEase. All rights reserved.</p>
+    </footer>
+
+    <script>
+        // Form submission handling
+        document.getElementById('contactForm').addEventListener('submit', function(e) {
+            e.preventDefault();
+            // Add your form submission logic here
+            alert('Thank you for your message! We will get back to you soon.');
+            this.reset();
+        });
+    </script>
+</body>
+</html>

@@ -1,0 +1,256 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Articles</title>
+    <style>
+        body {
+            margin: 0;
+            padding: 0;
+            font-family: 'Arial', sans-serif;
+            background-color: #111;
+            color: #fff;
+        }
+
+        header {
+            background-color: #1e1e1e;
+            padding: 20px;
+            text-align: center;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.5);
+            position: relative;
+        }
+
+        header h1 {
+            color: #ffcc00;
+            font-size: 36px;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+        }
+
+        /* Home button style, positioned in header */
+        .navbar {
+            position: absolute;
+            bottom: 20px;
+            right: 20px;
+        }
+
+        .navbar a {
+            color: #ffcc00;
+            text-decoration: none;
+            font-size: 18px;
+            transition: color 0.3s ease;
+        }
+
+        .navbar a:hover {
+            color: #e6b800;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 40px auto;
+            padding: 20px;
+            background-color: #1a1a1a;
+            border-radius: 10px;
+            box-shadow: 0px 4px 15px rgba(0, 0, 0, 0.7);
+        }
+
+        .article {
+            margin-bottom: 40px;
+            border-bottom: 1px solid #333;
+            padding-bottom: 20px;
+        }
+
+        .article h2 {
+            color: #ffcc00;
+            font-size: 28px;
+        }
+
+        .article p {
+            font-size: 18px;
+            line-height: 1.6;
+            color: #bbb;
+        }
+
+        .article .author {
+            font-size: 14px;
+            color: #999;
+        }
+
+        .article .like-button {
+            background-color: #ffcc00;
+            border: none;
+            color: #111;
+            padding: 10px 15px;
+            cursor: pointer;
+            font-size: 16px;
+            border-radius: 5px;
+            transition: background-color 0.3s ease;
+        }
+
+        .article .like-button:hover {
+            background-color: #e6b800;
+        }
+
+        .comments {
+            margin-top: 30px;
+        }
+
+        .comments h3 {
+            color: #ffcc00;
+            font-size: 22px;
+            margin-bottom: 10px;
+        }
+
+        .comment {
+            margin-bottom: 15px;
+            color: #bbb;
+        }
+
+        .comment-author {
+            font-weight: bold;
+            color: #ffcc00;
+        }
+
+        .add-comment {
+            margin-top: 20px;
+        }
+
+        .add-comment textarea {
+            width: calc(100% - 20px);
+            padding: 10px;
+            background-color: #222;
+            color: #fff;
+            border: 1px solid #444;
+            border-radius: 5px;
+            resize: vertical;
+            min-height: 80px;
+        }
+
+        .add-comment button {
+            margin-top: 10px;
+            background-color: #444;
+            border: none;
+            color: #fff;
+            padding: 10px 20px;
+            cursor: pointer;
+            border-radius: 5px;
+            font-size: 16px;
+            transition: background-color 0.3s ease;
+        }
+
+        .add-comment button:hover {
+            background-color: #ffcc00;
+            color: #111;
+        }
+
+        footer {
+            background-color: #1e1e1e;
+            padding: 20px;
+            text-align: center;
+            margin-top: 40px;
+            color: #999;
+        }
+    </style>
+</head>
+<body>
+
+<header>
+    <h1>Education</h1>
+
+    <div class="navbar">
+        <a href="home.html">Home</a>
+    </div>
+</header>
+
+<div class="container">
+
+    <div class="article">
+        <h2>Understanding Incident Management</h2>
+        <p class="author">By John Doe - October 19, 2024</p>
+        <p>Incident management is a key aspect of any cybersecurity program. It involves the detection, investigation, and response to potential threats that may compromise the security of systems or data...</p>
+        <button class="like-button" onclick="likeArticle(this)">👍 Like <span class="like-count">0</span></button>
+        
+        <div class="comments">
+            <h3>Comments</h3>
+            <div class="comment">
+                <p><span class="comment-author">Jane Smith:</span> Very informative article!</p>
+            </div>
+        </div>
+
+        <div class="add-comment">
+            <textarea placeholder="Add your comment..."></textarea>
+            <button onclick="addComment(this)">Post Comment</button>
+        </div>
+    </div>
+
+    <div class="article">
+        <h2>Network Security Essentials</h2>
+        <p class="author">By Jane Smith - October 18, 2024</p>
+        <p>Ensuring the security of a network is a fundamental aspect of modern cybersecurity practices. This article outlines the basic techniques and tools used to protect systems from unauthorized access...</p>
+        <button class="like-button" onclick="likeArticle(this)">👍 Like <span class="like-count">0</span></button>
+        
+        <div class="comments">
+            <h3>Comments</h3>
+            <div class="comment">
+                <p><span class="comment-author">John Doe:</span> Great insights!</p>
+            </div>
+        </div>
+
+        <div class="add-comment">
+            <textarea placeholder="Add your comment..."></textarea>
+            <button onclick="addComment(this)">Post Comment</button>
+        </div>
+    </div>
+
+    <div class="article">
+        <h2>Best Practices for Data Encryption</h2>
+        <p class="author">By Alice Brown - October 17, 2024</p>
+        <p>Data encryption is a critical component of cybersecurity, helping protect sensitive information from being accessed by unauthorized individuals. This article covers the most effective encryption methods...</p>
+        <button class="like-button" onclick="likeArticle(this)">👍 Like <span class="like-count">0</span></button>
+        
+        <div class="comments">
+            <h3>Comments</h3>
+            <div class="comment">
+                <p><span class="comment-author">Mark Johnson:</span> Very useful information!</p>
+            </div>
+        </div>
+
+        <div class="add-comment">
+            <textarea placeholder="Add your comment..."></textarea>
+            <button onclick="addComment(this)">Post Comment</button>
+        </div>
+    </div>
+
+</div>
+
+<footer>
+    <p>&copy; 2024 CyberEase Articles</p>
+</footer>
+
+<script>
+    function likeArticle(button) {
+        const likeCountElement = button.querySelector('.like-count');
+        let likeCount = parseInt(likeCountElement.textContent);
+        likeCount++;
+        likeCountElement.textContent = likeCount;
+    }
+
+    function addComment(button) {
+        const commentInput = button.previousElementSibling;
+        const commentText = commentInput.value.trim();
+        if (commentText) {
+            const article = button.closest('.article');
+            const commentsSection = article.querySelector('.comments');
+            const newComment = document.createElement('div');
+            newComment.classList.add('comment');
+            newComment.innerHTML = `<p><span class="comment-author">You:</span> ${commentText}</p>`;
+            commentsSection.appendChild(newComment);
+            commentInput.value = '';
+        }
+    }
+</script>
+
+</body>
+</html>
+

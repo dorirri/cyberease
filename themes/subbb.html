@@ -1,0 +1,176 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Subscription Plans</title>
+    <link rel="stylesheet" href="styles.css"> <!-- Подключение основного CSS-файла -->
+    <style>
+        /* Дополнительные стили для страницы подписки */
+        body {
+            background-color: #1c1c1c;
+            font-family: Arial, sans-serif;
+            color: #ffffff;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            margin: 0;
+        }
+
+        .subscription-container {
+            max-width: 900px;
+            width: 100%;
+            text-align: center;
+            padding: 20px;
+            margin: auto;
+        }
+
+        h1 {
+            color: #5bb3ff; /* Голубоватый оттенок для заголовка */
+            font-size: 2.5em;
+            margin-bottom: 10px;
+        }
+
+        p {
+            color: #e0e0e0;
+            font-size: 1.1em;
+            margin-bottom: 20px;
+        }
+
+        .subscription-cards {
+            display: flex;
+            justify-content: space-around;
+            gap: 15px;
+            margin-top: 20px;
+        }
+
+        .subscription-card {
+            background: #2c2c2c;
+            border-radius: 10px;
+            padding: 20px;
+            width: 30%;
+            color: #ffffff;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            text-align: center;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
+        }
+
+        .card-header {
+            background-color: #d1e8ff; /* Светло-голубой для выделения */
+            color: #000;
+            padding: 5px 10px;
+            border-radius: 5px;
+            font-weight: bold;
+            margin-bottom: 10px;
+        }
+
+        h3 {
+            font-size: 1.5em;
+            color: #5bb3ff; /* Голубоватый оттенок для заголовка подписки */
+        }
+
+        ul {
+            list-style: none;
+            padding: 0;
+            margin: 10px 0;
+            color: #b3b3b3;
+        }
+
+        ul li {
+            margin: 5px 0;
+        }
+
+        .subscribe-button {
+            background-color: #5bb3ff; /* Голубоватый оттенок для кнопки */
+            color: #000;
+            border: none;
+            border-radius: 20px;
+            padding: 10px 20px;
+            cursor: pointer;
+            margin-top: 15px;
+            font-weight: bold;
+            transition: background 0.3s;
+        }
+
+        .subscribe-button:hover {
+            background-color: #4a91cc; /* Темно-голубой оттенок при наведении */
+        }
+
+        /* Кнопка возврата */
+        .back-button {
+            margin-top: 30px;
+            color: #ffffff;
+            text-decoration: none;
+            background-color: #333;
+            padding: 10px 20px;
+            border-radius: 10px;
+            display: inline-block;
+            font-weight: bold;
+            transition: background 0.3s;
+        }
+
+        .back-button:hover {
+            background-color: #555;
+        }
+        .strikethrough {
+    text-decoration: line-through;
+    color: #b3b3b3; /* Опционально: можно сделать текст более светлым */
+}
+
+    </style>
+</head>
+<body>
+
+<div class="subscription-container">
+    <h1>Choose Your Subscription Plan</h1>
+    <p>Explore our subscription options and find the one that suits your needs best.</p>
+
+    <div class="subscription-cards">
+        <!-- Месячная подписка -->
+        <div class="subscription-card">
+            <div class="card-header">Free for 1 month</div>
+            <h3>Monthly Subscription</h3>
+            <p><strong>Free for 1 month</strong><br>$11.99 / month after</p>
+            <ul>
+                <li>24/7 Chat Support</li>
+                <li class="strikethrough">One Free Consultation</li>
+                <li class="strikethrough">Content Publishing</li>
+            </ul>
+            <button class="subscribe-button">Subscribe Now</button>
+        </div>
+
+        <!-- Подписка на полгода -->
+        <div class="subscription-card">
+            <div class="card-header">Free for 1 month</div>
+            <h3>6-Month Subscription</h3>
+            <p><strong>Free for 1 month</strong><br>$59.99 / 6 months after</p>
+            <ul>
+                <li>24/7 Chat Support</li>
+                <li>One Free Consultation</li>
+                <li class="strikethrough">Content Publishing</li>
+            </ul>
+            <button class="subscribe-button">Subscribe Now</button>
+        </div>
+
+        <!-- Годовая подписка -->
+        <div class="subscription-card">
+            <div class="card-header">Free for 1 month</div>
+            <h3>Annual Subscription</h3>
+            <p><strong>Free for 1 month</strong><br>$99.99 / year after</p>
+            <ul>
+                <li>24/7 Chat Support</li>
+                <li>One Free Consultation</li>
+                <li>Content Publishing</li>
+            </ul>
+            <button class="subscribe-button">Subscribe Now</button>
+        </div>
+    </div>
+
+    <a href="home.html" class="back-button">Back to Home</a>
+</div>
+
+</body>
+</html>
