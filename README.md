@@ -1,7 +1,7 @@
-# File Security Scanner Web Application
+# CyberEase Web Application
 
 ## Overview
-This web application provides a secure file scanning service with user authentication. It features a Windows Defender integration for malware scanning, a modern dark-themed UI, and protected routes requiring user authentication.
+This web application is a prototype for a cybersecurity services platform. It provides a secure file scanning service with user authentication. It features a Windows Defender integration for malware scanning, a modern dark-themed UI, and protected routes requiring user authentication.
 
 ## Features
 - User Authentication System
