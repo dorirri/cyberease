@@ -3,6 +3,7 @@ package main
 import (
 	"database/sql"
 	"fmt"
+	"os"
 
 	//"fmt"
 	"log"
@@ -11,6 +12,7 @@ import (
 	"CyberEase/scanner"
 
 	"github.com/gorilla/sessions"
+	"github.com/joho/godotenv"
 	_ "github.com/mattn/go-sqlite3"
 )
 
@@ -41,6 +43,13 @@ func main() {
 	initDB()
 	defer db.Close()
 
+	if err := godotenv.Load(); err != nil {
+		log.Printf("Error loading .env file: %v", err)
+	}
+	if os.Getenv("OPENROUTER_API_KEY") == "" {
+		log.Fatal("OPENROUTER_API_KEY is required")
+	}
+
 	mux := http.NewServeMux()
 
 	// Serve static files
@@ -52,17 +61,8 @@ func main() {
 	mux.HandleFunc("/login", loginHandler)
 	mux.HandleFunc("/", pageHandler)
 
-	// http.HandleFunc("/monitoring", monitoringHandler)
-	// http.HandleFunc("/audit", auditHandler)
-	// http.HandleFunc("/incident", incidentHandler)
-	// http.HandleFunc("/penetration", penetrationHandler)
-
-	// // // Public routes
-	// http.HandleFunc("/contactus", contactusHandler)
-	// http.HandleFunc("/consultation", consultationHandler)
-	// http.HandleFunc("/education", educationHandler)
-	// http.HandleFunc("/training", trainingHandler)
-	// http.HandleFunc("/sub", subHandler)
+	mux.HandleFunc("/sub", handleHome) // Changed from http.HandleFunc to mux.HandleFunc
+	mux.HandleFunc("/ws", handleWebSocket)
 
 	fmt.Println("Server is running on http://localhost:8080")
 	log.Fatal(http.ListenAndServe(":8080", mux))
