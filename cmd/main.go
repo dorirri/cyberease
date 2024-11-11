@@ -28,7 +28,6 @@ func initDB() {
 		log.Fatal(err)
 	}
 
-	// Create users table if not exists
 	_, err = db.Exec(`CREATE TABLE IF NOT EXISTS users (
         id INTEGER PRIMARY KEY AUTOINCREMENT,
         username TEXT NOT NULL UNIQUE,
@@ -52,16 +51,14 @@ func main() {
 
 	mux := http.NewServeMux()
 
-	// Serve static files
 	fs := http.FileServer(http.Dir("themes"))
 	mux.Handle("/static/", http.StripPrefix("/static/", fs))
 	mux.HandleFunc("/scan", scanner.ScanHandler)
-	// Routes without trailing slashes
 	mux.HandleFunc("/register", registerHandler)
 	mux.HandleFunc("/login", loginHandler)
 	mux.HandleFunc("/", pageHandler)
 
-	mux.HandleFunc("/sub", handleHome) // Changed from http.HandleFunc to mux.HandleFunc
+	mux.HandleFunc("/sub", handleHome)
 	mux.HandleFunc("/ws", handleWebSocket)
 
 	fmt.Println("Server is running on http://localhost:8080")

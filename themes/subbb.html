@@ -142,7 +142,6 @@
             <button class="subscribe-button">Subscribe Now</button>
         </div>
 
-        <!-- Подписка на полгода -->
         <div class="subscription-card">
             <div class="card-header">Free for 1 month</div>
             <h3>6-Month Subscription</h3>
@@ -155,7 +154,6 @@
             <button class="subscribe-button">Subscribe Now</button>
         </div>
 
-        <!-- Годовая подписка -->
         <div class="subscription-card">
             <div class="card-header">Free for 1 month</div>
             <h3>Annual Subscription</h3>
@@ -318,7 +316,6 @@ h2, h3 {
 
 
 <script>
-    // Add this JavaScript after your existing scripts
     document.addEventListener('DOMContentLoaded', function() {
         const modal = document.getElementById('subscriptionModal');
         const closeButton = document.querySelector('.close-button');
@@ -345,7 +342,6 @@ h2, h3 {
     
         document.getElementById('subscriptionForm').addEventListener('submit', function(e) {
             e.preventDefault();
-            // Add your form submission logic here
             alert('Thank you for your subscription request! We will contact you soon.');
             modal.style.display = 'none';
         });

@@ -1,4 +1,3 @@
-// For form validation, you can expand this based on your needs
 
 document.getElementById('loginForm').onsubmit = async function(event) {
     event.preventDefault();
@@ -10,7 +9,7 @@ document.getElementById('loginForm').onsubmit = async function(event) {
     });
 
     if (response.ok) {
-        window.location.href = '/theme-dust.html'; // Redirect to home page if login successful
+        window.location.href = '/theme-dust.html'; 
     } else {
         alert('Login failed! Check your credentials.');
     }

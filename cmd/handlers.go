@@ -115,7 +115,7 @@ func homeHandler(w http.ResponseWriter, r *http.Request) {
 		Authenticated: ok && auth,
 	}
 
-	ts, err := template.ParseFiles("themes/home.html") // Adjust the path as needed
+	ts, err := template.ParseFiles("themes/home.html")
 	if err != nil {
 		log.Print(err.Error())
 		http.Error(w, "Internal Server Error", http.StatusInternalServerError)
@@ -129,37 +129,28 @@ func homeHandler(w http.ResponseWriter, r *http.Request) {
 	}
 }
 
-// Add this to your handlers.go
-
 func pageHandler(w http.ResponseWriter, r *http.Request) {
-	// Get the path and remove the leading slash
 	path := strings.TrimPrefix(r.URL.Path, "/")
 
-	// Special case for root path
 	if path == "" {
 		path = "home.html"
 	}
 
-	// If the path doesn't end in .html, add it
 	if !strings.HasSuffix(path, ".html") {
 		path += ".html"
 	}
 
-	// Construct the full file path
 	fullPath := filepath.Join("themes", path)
 
-	// Check if file exists
 	if _, err := os.Stat(fullPath); os.IsNotExist(err) {
 		http.NotFound(w, r)
 		return
 	}
 
-	// For protected pages, check authentication
 	protectedPages := map[string]bool{
 		"monitoring.html": true,
 		"incident.html":   true,
 		"scan.html":       true,
-		// Add other protected pages here
 	}
 
 	if protectedPages[path] {
@@ -171,7 +162,6 @@ func pageHandler(w http.ResponseWriter, r *http.Request) {
 		}
 	}
 
-	// Parse and serve the template
 	ts, err := template.ParseFiles(fullPath)
 	if err != nil {
 		log.Printf("Error parsing template %s: %v", path, err)
@@ -179,7 +169,6 @@ func pageHandler(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 
-	// Pass authentication status to template
 	session, _ := store.Get(r, "session")
 	auth, ok := session.Values["authenticated"].(bool)
 

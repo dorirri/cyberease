@@ -13,25 +13,21 @@ import (
 	"github.com/gorilla/websocket"
 )
 
-// Message represents the structure of chat messages
 type Message struct {
 	Type    string `json:"type"`
 	Content string `json:"content"`
 }
 
-// OpenRouterRequest represents the request structure for OpenRouter API
 type OpenRouterRequest struct {
 	Model    string        `json:"model"`
 	Messages []ChatMessage `json:"messages"`
 }
 
-// ChatMessage represents a single message in the chat
 type ChatMessage struct {
 	Role    string `json:"role"`
 	Content string `json:"content"`
 }
 
-// OpenRouterResponse represents the response from OpenRouter API
 type OpenRouterResponse struct {
 	Choices []struct {
 		Message struct {
@@ -59,7 +55,6 @@ func handleWebSocket(w http.ResponseWriter, r *http.Request) {
 	}
 	defer conn.Close()
 
-	// Send welcome message
 	welcomeMsg := Message{
 		Type:    "bot",
 		Content: "Hello! I'm your cybersecurity consultant. How can I help you today?",
@@ -74,7 +69,6 @@ func handleWebSocket(w http.ResponseWriter, r *http.Request) {
 			break
 		}
 
-		// Get AI response
 		response, err := getOpenRouterResponse(msg.Content)
 		if err != nil {
 			log.Printf("Error getting AI response: %v", err)
@@ -99,7 +93,6 @@ func getOpenRouterResponse(userMessage string) (string, error) {
 	siteName := os.Getenv("YOUR_SITE_NAME")
 	siteURL := os.Getenv("YOUR_SITE_URL")
 
-	// Prepare the request body
 	requestBody := OpenRouterRequest{
 		Model: "openai/gpt-3.5-turbo",
 		Messages: []ChatMessage{
@@ -119,13 +112,11 @@ func getOpenRouterResponse(userMessage string) (string, error) {
 		return "", fmt.Errorf("error marshaling request: %v", err)
 	}
 
-	// Create the request
 	req, err := http.NewRequest("POST", "https://openrouter.ai/api/v1/chat/completions", bytes.NewBuffer(jsonBody))
 	if err != nil {
 		return "", fmt.Errorf("error creating request: %v", err)
 	}
 
-	// Set headers
 	req.Header.Set("Content-Type", "application/json")
 	req.Header.Set("Authorization", "Bearer "+apiKey)
 	if siteName != "" {
@@ -135,7 +126,6 @@ func getOpenRouterResponse(userMessage string) (string, error) {
 		req.Header.Set("HTTP-Referer", siteURL)
 	}
 
-	// Send the request
 	client := &http.Client{}
 	resp, err := client.Do(req)
 	if err != nil {
@@ -143,7 +133,6 @@ func getOpenRouterResponse(userMessage string) (string, error) {
 	}
 	defer resp.Body.Close()
 
-	// Read the response
 	body, err := ioutil.ReadAll(resp.Body)
 	if err != nil {
 		return "", fmt.Errorf("error reading response: %v", err)
@@ -153,7 +142,6 @@ func getOpenRouterResponse(userMessage string) (string, error) {
 		return "", fmt.Errorf("API request failed with status %d: %s", resp.StatusCode, string(body))
 	}
 
-	// Parse the response
 	var openRouterResp OpenRouterResponse
 	if err := json.Unmarshal(body, &openRouterResp); err != nil {
 		return "", fmt.Errorf("error parsing response: %v", err)

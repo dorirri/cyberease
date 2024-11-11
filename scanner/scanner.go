@@ -13,7 +13,6 @@ import (
 	"time"
 )
 
-// ScanResult represents the result of a malware scan
 type ScanResult struct {
 	Filename string    `json:"filename"`
 	IsClean  bool      `json:"is_clean"`
@@ -22,7 +21,6 @@ type ScanResult struct {
 	Debug    string    `json:"debug,omitempty"`
 }
 
-// WindowsDefenderScanner handles malware scanning using Windows Defender
 type WindowsDefenderScanner struct {
 	ScanPath string
 }
@@ -34,7 +32,6 @@ func NewScanner() *WindowsDefenderScanner {
 }
 
 func (s *WindowsDefenderScanner) ScanFile(filepath string) (*ScanResult, error) {
-	// [Previous scanner implementation remains the same]
 	result := &ScanResult{
 		Filename: filepath,
 		IsClean:  true,
@@ -75,17 +72,14 @@ func (s *WindowsDefenderScanner) ScanFile(filepath string) (*ScanResult, error) 
 	return result, nil
 }
 
-// handleGetRequest handles GET requests by serving the upload form
 func handleGetRequest(w http.ResponseWriter) {
 	w.Header().Set("Content-Type", "text/html; charset=utf-8")
 	fmt.Fprint(w, UploadForm)
 }
 
-// handlePostRequest handles POST requests for file scanning
 func handlePostRequest(w http.ResponseWriter, r *http.Request) {
 	log.Printf("Processing POST request from %s", r.RemoteAddr)
 
-	// Parse multipart form with 32MB limit
 	if err := r.ParseMultipartForm(32 << 20); err != nil {
 		log.Printf("Error parsing form: %v", err)
 		http.Error(w, "Error parsing form", http.StatusBadRequest)
@@ -102,7 +96,6 @@ func handlePostRequest(w http.ResponseWriter, r *http.Request) {
 
 	log.Printf("Received file: %s", header.Filename)
 
-	// Create temporary file
 	tempFile, err := os.CreateTemp("", "scan-*"+filepath.Ext(header.Filename))
 	if err != nil {
 		log.Printf("Error creating temp file: %v", err)
@@ -112,7 +105,6 @@ func handlePostRequest(w http.ResponseWriter, r *http.Request) {
 	defer os.Remove(tempFile.Name())
 	defer tempFile.Close()
 
-	// Copy uploaded file to temp file
 	if _, err := io.Copy(tempFile, file); err != nil {
 		log.Printf("Error copying file: %v", err)
 		http.Error(w, "Error processing file", http.StatusInternalServerError)
@@ -121,7 +113,6 @@ func handlePostRequest(w http.ResponseWriter, r *http.Request) {
 
 	log.Printf("File saved to temp location: %s", tempFile.Name())
 
-	// Create scanner and scan file
 	scanner := NewScanner()
 	result, err := scanner.ScanFile(tempFile.Name())
 	if err != nil {
@@ -130,10 +121,8 @@ func handlePostRequest(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 
-	// Update filename in result
 	result.Filename = header.Filename
 
-	// Send JSON response
 	w.Header().Set("Content-Type", "application/json")
 	if err := json.NewEncoder(w).Encode(result); err != nil {
 		log.Printf("Error encoding response: %v", err)
@@ -144,7 +133,6 @@ func handlePostRequest(w http.ResponseWriter, r *http.Request) {
 	log.Printf("Scan completed successfully for file: %s", header.Filename)
 }
 
-// ScanHandler is the main HTTP handler for the scanner
 func ScanHandler(w http.ResponseWriter, r *http.Request) {
 	switch r.Method {
 	case http.MethodGet:
