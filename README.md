@@ -13,6 +13,7 @@ This web application is a prototype for a cybersecurity services platform. It pr
 - Modern Dark Theme UI
 - Session Management
 - Secure Password Handling
+- AI Chatbot Integration (OpenRoute API)
 
 ## Prerequisites
 - Go 1.16 or higher
