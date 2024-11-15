@@ -1,0 +1,209 @@
+`
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Malware Scanner</title>
+    <style>
+        body {
+            margin: 0;
+            padding: 0;
+            font-family: 'Arial', sans-serif;
+            background-color: #111;
+            color: #fff;
+        }
+
+        header {
+            background-color: #1e1e1e;
+            padding: 20px;
+            text-align: center;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.5);
+        }
+
+        header h1 {
+            color: #ffcc00;
+            font-size: 36px;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+        }
+
+        .upload-form {
+            border: 2px dashed #ccc;
+            padding: 20px;
+            text-align: center;
+            background-color: #1a1a1a;
+            border-radius: 10px;
+            margin: 20px auto;
+            max-width: 600px;
+            box-shadow: 0px 4px 15px rgba(0, 0, 0, 0.7);
+        }
+
+        .result {
+            margin-top: 20px;
+            padding: 15px;
+            border-radius: 8px;
+            white-space: pre-wrap;
+        }
+
+        .clean {
+            background-color: #2b2b2b;
+            border: 1px solid #b3ffb3;
+        }
+
+        .infected {
+            background-color: #3b3b3b;
+            border: 1px solid #ffb3b3;
+        }
+
+        .error {
+            background-color: #333;
+            border: 1px solid #ffeeba;
+            color: #ffeeba;
+        }
+
+        button {
+            background-color: #444;
+            color: #fff;
+            padding: 10px 20px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            margin-top: 10px;
+            transition: background-color 0.3s ease;
+        }
+
+        button:hover {
+            background-color: #ffcc00;
+        }
+
+        .loading {
+            display: none;
+            margin-top: 20px;
+            color: #fff;
+        }
+
+        #debugInfo {
+            margin-top: 20px;
+            padding: 10px;
+            background-color: #222;
+            border: 1px solid #ddd;
+            font-family: monospace;
+            color: #fff;
+        }
+
+        /* Adjusting link styles */
+        a {
+            color: #ffcc00;
+            text-decoration: none;
+        }
+
+        a:hover {
+            color: #e6b800;
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <h1>File Security Scanner</h1>
+    </header>
+    <p style="text-align: center;">Upload a file to scan it for potential security threats.</p>
+    <div class="upload-form">
+        <form id="scanForm" enctype="multipart/form-data">
+            <input type="file" name="file" id="fileInput" required>
+            <br>
+            <button type="submit">Scan File</button>
+        </form>
+    </div>
+    <div id="loading" class="loading">
+        Scanning file... Please wait...
+    </div>
+    <div id="result" class="result" style="display: none;"></div>
+    <div id="debugInfo">
+        <strong>Debug Info:</strong>
+        <pre id="debugOutput"></pre>
+    </div>
+
+    <script>
+        function appendDebug(message) {
+            const debugOutput = document.getElementById('debugOutput');
+            const timestamp = new Date().toISOString();
+            debugOutput.textContent += timestamp + ": " + message + "\n";
+            console.log(message);
+        }
+
+        document.getElementById('fileInput').addEventListener('change', function(e) {
+            const file = e.target.files[0];
+            if (file) {
+                appendDebug("File selected: " + file.name + " (" + file.size + " bytes, type: " + file.type + ")");
+            }
+        });
+
+        document.getElementById('scanForm').onsubmit = async function(e) {
+            e.preventDefault();
+            appendDebug('Form submission started');
+            
+            const formData = new FormData(e.target);
+            const file = formData.get('file');
+            if (!file) {
+                appendDebug('Error: No file selected');
+                return;
+            }
+            appendDebug('Preparing to upload file: ' + file.name);
+            
+            const resultDiv = document.getElementById('result');
+            const loadingDiv = document.getElementById('loading');
+            const submitButton = e.target.querySelector('button');
+            
+            submitButton.disabled = true;
+            loadingDiv.style.display = 'block';
+            resultDiv.style.display = 'none';
+            
+            try {
+                appendDebug('Starting file upload to server...');
+                const response = await fetch('/scan', {
+                    method: 'POST',
+                    body: formData
+                });
+                
+                appendDebug('Server responded with status: ' + response.status);
+                
+                if (!response.ok) {
+                    const errorText = await response.text();
+                    appendDebug('Server error: ' + errorText);
+                    throw new Error(errorText || 'Server error');
+                }
+                
+                appendDebug('Parsing server response...');
+                const result = await response.json();
+                appendDebug('Server response parsed successfully');
+                
+                resultDiv.className = 'result ' + (result.is_clean ? 'clean' : 'infected');
+                resultDiv.innerHTML = 
+                    '<h3>Scan Results:</h3>' +
+                    '<p>File: ' + result.filename + '</p>' +
+                    '<p>Status: ' + (result.is_clean ? 'Clean ✅' : 'Threat Detected ⚠️') + '</p>' +
+                    (result.threat ? '<p>Threat: ' + result.threat + '</p>' : '') +
+                    '<p>Scan Time: ' + new Date(result.scan_time).toLocaleString() + '</p>' +
+                    (result.debug ? '<pre>Debug Info:\n' + result.debug + '</pre>' : '');
+                
+                appendDebug('Results displayed successfully');
+                
+            } catch (error) {
+                appendDebug('Error occurred: ' + error.message);
+                resultDiv.className = 'result error';
+                resultDiv.innerHTML = 'Error scanning file: ' + error.message;
+                console.error('Error:', error);
+            } finally {
+                submitButton.disabled = false;
+                loadingDiv.style.display = 'none';
+                resultDiv.style.display = 'block';
+            }
+        };
+
+        // Log when page loads
+        appendDebug('Scanner page loaded successfully');
+    </script>
+</body>
+</html>
+`
